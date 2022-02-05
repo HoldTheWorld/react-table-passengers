@@ -1,7 +1,7 @@
 {
   "passengers": [
-    { "id": 1, "name": "ivan", "bdate": "01.07.1992", "gender": "male" },
-    { "id": 2, "name": "petr", "bdate": "11.02.1990", "gender": "male" }
+    { "id": 1, "first_name": "ivan", "last_name": "ivanov", "bdate": "01.07.1992", "gender": "male", "blood": "I(+)", "children": 0 },
+    { "id": 2, "first_name": "petr", "last_name": "petrov", "bdate": "11.02.1990", "gender": "male", "blood": "I(-)", "children": 1 }
   ],
   "comments": [
     { "id": 1, "body": "some comment", "postId": 1 }
