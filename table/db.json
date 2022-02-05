@@ -1,0 +1,10 @@
+{
+  "passengers": [
+    { "id": 1, "name": "ivan", "bdate": "01.07.1992", "gender": "male" },
+    { "id": 2, "name": "petr", "bdate": "11.02.1990", "gender": "male" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}
