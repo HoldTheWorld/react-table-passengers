@@ -8,12 +8,14 @@ import Table1 from './components/Table1';
 import { useEffect, useState} from 'react'
 
 function App() {
-  const { passengers,  setPassengers, visibleSave, setVisibleSave} = usePassengersContext()
+  const { passengers,  setPassengers, checkedRows, setCheckedRows} = usePassengersContext()
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     async function getPass() {
       const response = await fetch('http://localhost:3000/passengers')
-      const data = await response.json() 
+      const data = await response.json()
+      setCount(data.length)
       setPassengers(data) 
     }
     getPass()
@@ -51,21 +53,32 @@ function App() {
     setPassengers(data2) 
   }
 
+  const handleDelete = async () => {
+    checkedRows.forEach(async (el) => {
+      const response = await fetch(`http://localhost:3000/passengers/${el}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+    })
+    setTimeout(async ()=> {
+      const response3 = await fetch('http://localhost:3000/passengers')
+      const data3 = await response3.json() 
+      console.log(data3);
+      setPassengers(data3) 
+    }, 500)
+  }
+
   return (      
     <div className="App">
       <button onClick={handleAdd} >Add </button>
-      <button> Delete </button>
+      <button onClick={handleDelete}> Delete </button>
       <button onClick={handleSubmitChanges}>Save </button> 
-      {/* {visibleSave ?  <button >Save </button> : ''} */}
-  
-      {/* <Table passengers={passengers}/> */}
-      {/* <SortingTable passengers={passengers}/> */}
-      {/* <RowSelection passengers={passengers}/> */}
-      {/* <Table1/> */}
       <table>
       <thead>
         <th>
-       
         </th>
         <th>
           id
@@ -87,11 +100,12 @@ function App() {
         </th>
       </thead>
       <tbody>
-         {passengers.map((el) => 
+         {passengers.map((el, i) => 
            <Row 
            key={el.id} 
            el={el} 
            changeRow={changeRow}
+           i={i}
            />
          )}
       </tbody>

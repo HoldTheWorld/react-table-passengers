@@ -3,14 +3,16 @@ import { usePassengersContext } from '../../context/passengersContext'
 
 import { useEffect, useState} from 'react'
 
-function Row({el,changeRow}) {
-  // const { setPassengers, visibleSave, setVisibleSave, chosenRows, setChosenRows, handleSubmitChanges} = usePassengersContext()
+function Row({el,changeRow, i}) {
+  const { checkedRows, setCheckedRows } = usePassengersContext()
 
 const [id, setId] = useState('')
 const [first_name, setFirstName] = useState('')
 const [last_name, setLastName] = useState('')
 const [bdate, setBdate] = useState('')
 const [gender, setGender] = useState('')
+
+const [checked, setChecked] = useState(false)
 
 useEffect(() => {
   setId(el.id)
@@ -20,15 +22,23 @@ useEffect(() => {
   setGender(el.gender)
 }, [])
 
-
+  const handleCheck = (e) => {
+    setChecked(!checked)
+    if (checked) { //хотим удалить
+      const newArr = checkedRows.filter(el => el != e.target.name)
+      setCheckedRows(newArr)
+    } else { //хотим добавить 
+      setCheckedRows([...checkedRows, e.target.name])
+    }
+  }
 
   return (
     <tr onBlur={()=> {changeRow(el.id, {id, first_name, last_name, bdate, gender} )}}>
     <td>
-    <input type='checkbox' name={el.id} />
+    <input onChange={handleCheck} checked={checked} type='checkbox' name={el.id} />
     </td>
     <td>
-      <input  disabled='false' value={el.id}/>
+      <input  disabled='false' value={i+1}/>
     </td>
       <td>
       <input onChange={(e) => setFirstName(e.target.value)} value={first_name}/>

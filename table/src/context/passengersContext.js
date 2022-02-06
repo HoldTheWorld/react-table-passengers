@@ -5,19 +5,14 @@ const passengersContext = createContext()
 export function PassengersContextProvider({children}) {
   const [passengers, setPassengers] = useState([])
   const [visibleSave, setVisibleSave] = useState(false)
-  const [chosenRows, setChosenRows] = useState([])
-  const handleSubmitChanges = () => {
-
-  }
-
+  const [checkedRows, setCheckedRows] = useState([])
 
 
   return (
     <passengersContext.Provider value={{ 
       passengers, setPassengers ,
       visibleSave, setVisibleSave,
-      handleSubmitChanges,
-      chosenRows, setChosenRows,
+      checkedRows, setCheckedRows,
       }}>
       {children}
     </passengersContext.Provider>
