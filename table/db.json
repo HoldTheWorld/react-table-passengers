@@ -1,10 +1,65 @@
 {
   "passengers": [
-    { "id": 1, "first_name": "ivan", "last_name": "ivanov", "bdate": "01.07.1992", "gender": "male", "blood": "I(+)", "children": 0 },
-    { "id": 2, "first_name": "petr", "last_name": "petrov", "bdate": "11.02.1990", "gender": "male", "blood": "I(-)", "children": 1 }
+    {
+      "id": 1,
+      "first_name": "ivanddd",
+      "last_name": "ivanov",
+      "bdate": "01.07.1992",
+      "gender": "male"
+    },
+    {
+      "id": 2,
+      "first_name": "ivanidze",
+      "last_name": "ivanov",
+      "bdate": "01.07.1992",
+      "gender": "male"
+    },
+    {
+      "id": 3,
+      "first_name": "semen",
+      "last_name": "semenov",
+      "bdate": "16.12.1999",
+      "gender": "male"
+    },
+    {
+      "id": 4,
+      "first_name": "vasiliy",
+      "last_name": "vasiliev",
+      "bdate": "03.09.1987",
+      "gender": "male"
+    },
+    {
+      "id": 5,
+      "first_name": "sxsx"
+    },
+    {
+      "id": 6,
+      "first_name": "lll",
+      "last_name": "lola",
+      "bdate": "w;a;s"
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8,
+      "last_name": "zdc"
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
-  "profile": { "name": "typicode" }
+  "profile": {
+    "name": "typicode"
+  }
 }
