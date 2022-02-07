@@ -1,15 +1,13 @@
-import './App.css';
-import Table from './components/Table';
-import Row from './components/Rows/Row';
-import SortingTable from './components/SortingTable';
-import RowSelection from './components/RowSelection';
+import './App.css'
+import './components/table.css'
+import Row from './components/Rows/Row'
 import { usePassengersContext } from './context/passengersContext'
-import Table1 from './components/Table1';
 import { useEffect, useState} from 'react'
 
 function App() {
-  const { passengers,  setPassengers, checkedRows, setCheckedRows} = usePassengersContext()
+  const { passengers,  setPassengers, checkedRows, setCheckedRows, moreIsShown, setMoreIsShown} = usePassengersContext()
   const [count, setCount] = useState(0)
+  const [disabledDelete, setDisabledDelete] = useState(true)
 
   useEffect(() => {
     async function getPass() {
@@ -21,6 +19,13 @@ function App() {
     getPass()
   }, []) 
 
+  useEffect(() => {
+    if(!checkedRows.length) {
+      setDisabledDelete(false)
+    } else {
+      setDisabledDelete(true)
+    }
+  }, [checkedRows])
 
   const changeRow = (id, obj) => {
     const update = passengers.map((pass) => pass.id == id ? obj : pass )
@@ -29,7 +34,12 @@ function App() {
 
   const handleSubmitChanges = async () => {
     passengers.forEach(async (element) => {
-      const response = await fetch(`http://localhost:3000/passengers/${element.id}`, {
+      // console.log(element.name, element.gender, element.bdate);
+      if(!element.name && !element.gender && !element.bdate) {
+        alert('Заполните все обязательные поля!')
+      } else {
+        // console.log('true');
+        await fetch(`http://localhost:3000/passengers/${element.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -37,67 +47,69 @@ function App() {
         credentials: 'include',
         body: JSON.stringify(element)
       })
+      }
     })
   }
 
   const handleAdd = async () => {
-    const response = await fetch(`http://localhost:3000/passengers`, {
+    await fetch(`http://localhost:3000/passengers`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
     })
-    const response2 = await fetch('http://localhost:3000/passengers')
-    const data2 = await response2.json() 
-    setPassengers(data2) 
+    const response = await fetch('http://localhost:3000/passengers')
+    const data = await response.json()
+
+    setPassengers(data)
   }
 
   const handleDelete = async () => {
-    checkedRows.forEach(async (el) => {
-      const response = await fetch(`http://localhost:3000/passengers/${el}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
+    const resp = window.confirm('Вы уверены что хотите удалить выбранные элементы?')
+    if (resp) {
+
+      checkedRows.forEach(async (el) => {
+          await fetch(`http://localhost:3000/passengers/${el}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        })
+        setPassengers(passengers.filter((elem) => el != elem.id))
       })
-    })
-    setTimeout(async ()=> {
-      const response3 = await fetch('http://localhost:3000/passengers')
-      const data3 = await response3.json() 
-      console.log(data3);
-      setPassengers(data3) 
-    }, 500)
+      alert('данные удалены')
+    } 
   }
 
   return (      
     <div className="App">
-      <button onClick={handleAdd} >Add </button>
-      <button onClick={handleDelete}> Delete </button>
-      <button onClick={handleSubmitChanges}>Save </button> 
+      <button onClick={handleAdd} >Добавить строку </button>
+      <button disabled={!disabledDelete} onClick={handleDelete}> Удалить</button>
+      <button onClick={handleSubmitChanges}> Сохранить </button> 
       <table>
       <thead>
         <th>
         </th>
-        <th>
-          id
+        <th className='idrow'>
+       
         </th>
         <th>
-          first name
+          Имя
         </th>
-        <th>
+        {/* <th>
         last name
+        </th> */}
+        <th>
+        Дата рождения
         </th>
         <th>
-        bdate
+        Пол
         </th>
-        <th>
-        gender
-        </th>
-        <th>
-        other
-        </th>
+          <th>
+          Другое
+          </th>
       </thead>
       <tbody>
          {passengers.map((el, i) => 

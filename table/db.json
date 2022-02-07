@@ -2,37 +2,16 @@
   "passengers": [
     {
       "id": 1,
-      "first_name": "ivanddd",
-      "last_name": "ivanov",
-      "bdate": "01.07.1992",
-      "gender": "male"
+      "first_name": "Иванов И.И.",
+      "bdate": "1984-09-19",
+      "gender": "Мужской",
+      "blood": "1",
+      "children": "1"
     },
     {
       "id": 2,
-      "first_name": "ivanidze",
-      "last_name": "ivanov",
-      "bdate": "01.07.1992",
-      "gender": "male"
-    },
-    {
-      "id": 3,
-      "first_name": "semen",
-      "last_name": "semenov",
-      "bdate": "16.12.1999",
-      "gender": "male"
-    },
-    {
-      "id": 4,
-      "first_name": "vasiliy",
-      "last_name": "vasiliev",
-      "bdate": "03.09.1987",
-      "gender": "male"
-    },
-    {
-      "id": 6
-    },
-    {
-      "id": 8
+      "first_name": "Петров В.В.",
+      "bdate": "1992-07-04"
     }
   ],
   "comments": [
